@@ -1,0 +1,12 @@
+<div class="wrapper">
+<div>
+    <select-custom-trigger-example *ngIf="(options | async) as opts"
+    [formControl]="toppings"
+    [toppingsOptions]="opts"
+    ></select-custom-trigger-example>
+</div>
+<div>    
+    <h3>Toppings selected as seen by parent form</h3>
+    {{ toppings.value | json }}
+</div>
+</div>
