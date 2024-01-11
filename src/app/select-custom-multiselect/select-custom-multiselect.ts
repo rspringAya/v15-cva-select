@@ -13,6 +13,7 @@ import {
     ControlValueAccessor,
     FormBuilder,
     FormControl,
+    NG_VALIDATORS,
     NgControl,
     ValidationErrors,
     Validator
@@ -27,9 +28,16 @@ interface ListItem {
 
 /** @title Select with custom trigger text */
 @Component({
-    selector: 'select-custom-trigger-example',
-    templateUrl: 'select-custom-trigger-example.html',
-    styleUrls: ['select-custom-trigger-example.css']
+    selector: 'select-custom-multiselect',
+    templateUrl: 'select-custom-multiselect.html',
+    styleUrls: ['select-custom-multiselect.css'],
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: SelectCustomTriggerExample,
+            multi: true
+        }
+    ]
 })
 export class SelectCustomTriggerExample
     implements
@@ -43,18 +51,20 @@ export class SelectCustomTriggerExample
 {
     readonly toppings: FormControl<ListItem[]>;
 
-    constructor(private readonly _fb: FormBuilder,
-      private readonly ngControl: NgControl) {
-      this.ngControl.valueAccessor = this;
+    constructor(
+        private readonly _fb: FormBuilder,
+        private readonly ngControl: NgControl
+    ) {
+        this.ngControl.valueAccessor = this;
         this.toppings = this._fb.nonNullable.control<ListItem[]>([]);
-        this.toppingsOptions$.subscribe(e => console.log('new options', e));
+        this.toppingsOptions$.subscribe((e) => console.log('new options', e));
     }
 
     readonly toppingsOptions$ = new ReplaySubject<ListItem[]>();
 
     @Input()
     set toppingsOptions(value: ListItem[]) {
-            this.toppingsOptions$.next(value);
+        this.toppingsOptions$.next(value);
     }
 
     // #region CVA
@@ -88,6 +98,7 @@ export class SelectCustomTriggerExample
             )
             .subscribe((t) => {
                 this.onChange(t);
+                this.OnValidatorChange();
             });
     }
 
@@ -104,14 +115,14 @@ export class SelectCustomTriggerExample
         console.log('validate');
         return this.toppings.errors;
     }
-    onChange(val: number[]) {
-        //placeholder
+    onChange = (val: number[]) => {
     }
-    registerOnValidatorChange?(fn: any): void {
+    registerOnValidatorChange(fn: any): void {
         console.log('registerOnValidatorChange');
+        this.OnValidatorChange = fn;
     }
     // #endregion Validator
-
+    OnValidatorChange = () => {};
     ngOnChanges(changes: SimpleChanges): void {
         console.log('ngOnChanges');
         if (changes.toppingsOptions) {

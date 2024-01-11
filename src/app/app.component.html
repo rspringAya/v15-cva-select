@@ -1,9 +1,9 @@
 <div class="wrapper">
 <div>
-    <select-custom-trigger-example *ngIf="(options | async) as opts"
+    <select-custom-multiselect *ngIf="(options | async) as opts"
     [formControl]="toppings"
     [toppingsOptions]="opts"
-    ></select-custom-trigger-example>
+    ></select-custom-multiselect>
 </div>
 <div>    
     <h3>Toppings selected as seen by parent form</h3>

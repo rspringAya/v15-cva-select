@@ -4,7 +4,7 @@ import { of } from "rxjs";
 import { delay } from "rxjs/operators";
 
 @Component({
-  selector: "example-app",
+  selector: "tutorial-app",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })

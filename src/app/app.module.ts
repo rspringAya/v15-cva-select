@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {MaterialExampleModule} from '../material.module';
-import {SelectCustomTriggerExample} from './select-custom-trigger-example/select-custom-trigger-example';
+import {SelectCustomTriggerExample} from './select-custom-multiselect/select-custom-multiselect';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';
